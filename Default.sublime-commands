@@ -1,6 +1,6 @@
 [
-	{
-		"caption": "JsCoverage: Cover file",
-		"command": "cover_file"
-	}
-]
+    {
+        "caption": "JsCoverage: Cover file",
+        "command": "toggle_js_coverage"
+    }
+] 
