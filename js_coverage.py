@@ -25,7 +25,7 @@ def cover(view):
 
     view.add_regions('JsCoverageListener',
                         regions, color_scope_name,
-                        sublime.DRAW_OUTLINED)
+                        sublime.PERSISTENT)
 
 def uncover(window):
     for view in window.views():
