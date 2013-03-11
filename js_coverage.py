@@ -11,12 +11,11 @@ plugin_enabled = bool(settings.get('js_coverage_enabled', DEFAULT_IS_ENABLED))
 def cover(view):
     ## run_all_tests()
 
-    ## log = read_coverage_log()
+    ## log = get_coverage_log()
 
     ## highlight_uncovered_lines(log)
 
     ## highlight_covered_lines(log)
-
 
     regions = view.lines(sublime.Region(0, view.size()))
     
