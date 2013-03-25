@@ -1,10 +1,7 @@
-import sublime
-import sublime_plugin
-import subprocess
-import json
-import os
+import sublime, sublime_plugin, subprocess, json, os
+from glob import glob
 
-COVERAGE_LOG_PATH = "coverage/coverage-PhantomJS 1.6 (Windows)-20130325_112552.json"
+COVERAGE_LOG_PATH = os.path.abspath("coverage") + "\coverage-PhantomJS*.json"
 DEFAULT_COLOR_SCOPE_NAME = "invalid"
 DEFAULT_IS_ENABLED = False
 
@@ -14,9 +11,20 @@ plugin_enabled = bool(settings.get('js_coverage_enabled', DEFAULT_IS_ENABLED))
 def cover(view):
     run_tests()
 
+    sublime.set_timeout(lambda: highlight(view), 6000)
+
+def uncover(window):
+    for view in window.views():
+        view.erase_regions('JsCoverageListener')
+
+def run_tests():
+    sublime.status_message("Running tests and generating coverage")
+    subprocess.Popen("testacular start \"config/testacular.conf.js\"", stdout=subprocess.PIPE, shell=True)
+
+def highlight(view):
     log = get_coverage_log()
 
-    #delete_log()
+    delete_log()
 
     #highlight_uncovered_lines(log)
 
@@ -24,27 +32,23 @@ def cover(view):
 
     regions = view.lines(sublime.Region(0, view.size()))
     
-    color_scope_name = settings.get('highlight_color',
-                                        DEFAULT_COLOR_SCOPE_NAME)
+    color_scope_name = settings.get('highlight_color', DEFAULT_COLOR_SCOPE_NAME)
 
     view.add_regions('JsCoverageListener',
                         regions, color_scope_name,
                         sublime.PERSISTENT)
 
-def uncover(window):
-    for view in window.views():
-        view.erase_regions('JsCoverageListener')
-
-def run_tests():
-    subprocess.Popen("testacular start \"config/testacular.conf.js\"", stdout=subprocess.PIPE, shell=True)
-
 def get_coverage_log():
-    log = open(COVERAGE_LOG_PATH).read()
+    print get_log_path()
+    log = open(get_log_path()).read()
 
     return json.loads(log)
 
 def delete_log():
-    os.remove(COVERAGE_LOG_PATH)
+    os.remove(get_log_path())    
+
+def get_log_path():
+    return glob(COVERAGE_LOG_PATH)[0]
 
 class JsCoverageCommand(sublime_plugin.WindowCommand):
     def run(self):

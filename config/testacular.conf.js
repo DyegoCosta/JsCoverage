@@ -10,8 +10,8 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'sample_data/js/*.js',
-  'sample_data/test/*Spec.js'
+  '../sample_data/js/*.js',
+  '../sample_data/test/*Spec.js'
 ];
 
 
@@ -32,8 +32,7 @@ reporters = ['coverage'];
 
 coverageReporter = {
   type : 'html',
-  dir : '../coverage/',
-  file : '../coverage.txt'
+  dir : '../coverage/'
 }
 
 // web server port
