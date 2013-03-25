@@ -31,14 +31,7 @@ def uncover(window):
         view.erase_regions('JsCoverageListener')
 
 def run_tests():
-    print('Running tests')
-    
-    output = subprocess.Popen("testacular run", stdout=subprocess.PIPE, shell=True).communicate()[0]
-
-    print(output)
-    
-    #call("testacular run", shell=True)
-    #call("exit 1", shell=True)
+    subprocess.Popen("testacular start \"config/testacular.conf.js\"", stdout=subprocess.PIPE, shell=True)
 
 class JsCoverageCommand(sublime_plugin.WindowCommand):
     def run(self):
@@ -60,7 +53,6 @@ class ToggleJsCoverageCommand(sublime_plugin.WindowCommand):
         plugin_enabled = False if plugin_enabled else True
 
         if plugin_enabled:
-            subprocess.call("testacular start", shell=True)
             cover(self.window.active_view())
         else:
             uncover(self.window)

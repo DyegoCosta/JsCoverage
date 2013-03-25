@@ -3,15 +3,15 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = 'C:\\Users\\Dyego\\Dropbox\\FizzBuzz-Javascript';
+basePath = '';
 
 
 // list of files / patterns to load in the browser
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'js/*.js',
-  'test/*Spec.js'
+  'sample_data/js/*.js',
+  'sample_data/test/*Spec.js'
 ];
 
 
@@ -22,8 +22,8 @@ exclude = [
 
 preprocessors = {
   '**/lib/*.js': 'coverage',
-  'js/*.js': 'coverage',
-  'test/*Spec.js': 'coverage'
+  '../sample_data/js/*.js': 'coverage',
+  '../sample_data/test/*Spec.js': 'coverage'
 };
 
 // test results reporter to use
@@ -32,8 +32,8 @@ reporters = ['coverage'];
 
 coverageReporter = {
   type : 'html',
-  dir : 'coverage/',
-  file : 'coverage.txt'
+  dir : '../coverage/',
+  file : '../coverage.txt'
 }
 
 // web server port
@@ -54,7 +54,7 @@ logLevel = LOG_INFO;
 
 
 // enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
+autoWatch = false;
 
 
 // Start these browsers, currently available:
@@ -74,4 +74,4 @@ captureTimeout = 60000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = false;
+singleRun = true;
