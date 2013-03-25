@@ -43,6 +43,9 @@ def get_coverage_log():
 
     return json.loads(log)
 
+def delete_log():
+    os.remove(COVERAGE_LOG_PATH)
+
 class JsCoverageCommand(sublime_plugin.WindowCommand):
     def run(self):
         cover(self.window.active_view()) if plugin_enabled else uncover(self.window)
