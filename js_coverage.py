@@ -1,7 +1,10 @@
 import sublime
 import sublime_plugin
 import subprocess
+import json
+import os
 
+COVERAGE_LOG_PATH = "coverage/coverage-PhantomJS 1.6 (Windows)-20130325_112552.json"
 DEFAULT_COLOR_SCOPE_NAME = "invalid"
 DEFAULT_IS_ENABLED = False
 
@@ -11,7 +14,9 @@ plugin_enabled = bool(settings.get('js_coverage_enabled', DEFAULT_IS_ENABLED))
 def cover(view):
     run_tests()
 
-    #log = get_coverage_log()
+    log = get_coverage_log()
+
+    #delete_log()
 
     #highlight_uncovered_lines(log)
 
@@ -32,6 +37,11 @@ def uncover(window):
 
 def run_tests():
     subprocess.Popen("testacular start \"config/testacular.conf.js\"", stdout=subprocess.PIPE, shell=True)
+
+def get_coverage_log():
+    log = open(COVERAGE_LOG_PATH).read()
+
+    return json.loads(log)
 
 class JsCoverageCommand(sublime_plugin.WindowCommand):
     def run(self):
