@@ -26,9 +26,9 @@ def highlight(view):
 
     delete_log()
 
-    #highlight_uncovered_lines(log)
+    highlight_uncovered_lines(log)
 
-    #highlight_covered_lines(log)
+    highlight_covered_lines(log)
 
     regions = view.lines(sublime.Region(0, view.size()))
     
@@ -55,14 +55,14 @@ class JsCoverageCommand(sublime_plugin.WindowCommand):
         cover(self.window.active_view()) if plugin_enabled else uncover(self.window)
 
 class JsCoverageListener(sublime_plugin.EventListener):
-    '''def on_modified(self, view):
+    def on_modified(self, view):
         if plugin_enabled: cover(view)
 
     def on_activated(self, view):
         if plugin_enabled: cover(view)
 
     def on_load(self, view):
-        if plugin_enabled: cover(view)'''
+        if plugin_enabled: cover(view)
 
 class ToggleJsCoverageCommand(sublime_plugin.WindowCommand):
     def run(self):
